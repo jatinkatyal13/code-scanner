@@ -550,7 +550,6 @@ public final class CodeScanner {
                     new InitializationThread(width, height);
             initializationThread.setUncaughtExceptionHandler(mExceptionHandler);
             initializationThread.start();
-            if (mPreviewRequested) startPreview();
         } else {
             mInitializationRequested = true;
         }
@@ -730,7 +729,7 @@ public final class CodeScanner {
                     if (mInitialized) {
                         releaseResources();
                     }
-                    if (previewActive || mInitializationRequested) {
+                    if (previewActive || mInitializationRequested || mPreviewRequested) {
                         initialize(width, height);
                     }
                 }
