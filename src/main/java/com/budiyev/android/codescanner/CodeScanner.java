@@ -123,6 +123,7 @@ public final class CodeScanner {
     private boolean mTouchFocusEnabled = DEFAULT_TOUCH_FOCUS_ENABLED;
     private boolean mTouchFocusing = false;
     private boolean mPreviewActive = false;
+    private boolean mPreviewRequested = false;
     private boolean mSafeAutoFocusing = false;
     private boolean mSafeAutoFocusTaskScheduled = false;
     private boolean mInitializationRequested = false;
@@ -450,6 +451,7 @@ public final class CodeScanner {
      */
     @MainThread
     public void startPreview() {
+        mPreviewRequested = true;
         synchronized (mInitializeLock) {
             if (!mInitialized && !mInitialization) {
                 initialize();
@@ -548,6 +550,7 @@ public final class CodeScanner {
                     new InitializationThread(width, height);
             initializationThread.setUncaughtExceptionHandler(mExceptionHandler);
             initializationThread.start();
+            if (mPreviewRequested) startPreview();
         } else {
             mInitializationRequested = true;
         }
@@ -566,6 +569,7 @@ public final class CodeScanner {
                 camera.startPreview();
                 mStoppingPreview = false;
                 mPreviewActive = true;
+                mPreviewRequested = false;
                 mSafeAutoFocusing = false;
                 mSafeAutoFocusAttemptsCount = 0;
                 if (decoderWrapper.isAutoFocusSupported() && mAutoFocusEnabled) {
