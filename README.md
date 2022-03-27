@@ -101,9 +101,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
-        
+
         codeScanner = CodeScanner(this, scannerView)
-        
+
         // Parameters (default values)
         codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
         codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         codeScanner.scanMode = ScanMode.SINGLE // or CONTINUOUS or PREVIEW
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
         codeScanner.isFlashEnabled = false // Whether to enable flash or not
-        
+
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG).show()
             }
         }
-        
+
         scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mCodeScanner.startPreview();
             }
-        });       
+        });
     }
 
     @Override
@@ -195,7 +195,7 @@ Kotlin
 class MainFragment : Fragment() {
     private lateinit var codeScanner: CodeScanner
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
@@ -256,7 +256,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 mCodeScanner.startPreview();
             }
-        });        
+        });
         return root;
     }
 
