@@ -336,7 +336,9 @@ final class Utils {
     public static Result decodeLuminanceSource(@NonNull final MultiFormatReader reader,
             @NonNull final LuminanceSource luminanceSource) throws ReaderException {
         try {
-            return reader.decodeWithState(new BinaryBitmap(new HybridBinarizer(luminanceSource)));
+            Map<DecodeHintType, Objectr> singletonMap = Collections.singletonMap(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+
+            return reader.decode(new BinaryBitmap(new HybridBinarizer(luminanceSource)), singletonMap);
         } catch (final NotFoundException e) {
             return reader.decodeWithState(
                     new BinaryBitmap(new HybridBinarizer(luminanceSource.invert())));
